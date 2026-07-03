@@ -117,7 +117,9 @@ html, body {
 .substat { font-size: 13px; color: #8fb8dd; letter-spacing: 0.1em; }
 
 .btn {
-  pointer-events: auto; cursor: pointer;
+  /* inert by default — a hidden screen's buttons must never steal taps
+     (opacity:0 elements still hit-test); .screen.on re-enables them */
+  pointer-events: none; cursor: pointer;
   border: 2px solid #37e0ff; border-radius: 12px;
   background: rgba(55, 224, 255, 0.08);
   color: #eaf7ff;
@@ -128,6 +130,7 @@ html, body {
   box-shadow: 0 0 18px rgba(55, 224, 255, 0.25), inset 0 0 18px rgba(55, 224, 255, 0.08);
   transition: transform 0.12s, box-shadow 0.12s, background 0.12s;
 }
+.screen.on .btn { pointer-events: auto; }
 .btn:active { transform: scale(0.94); background: rgba(55, 224, 255, 0.22); }
 .btn.pulse { animation: btnpulse 1.6s ease-in-out infinite; }
 .btn.ghost { border-color: rgba(143, 184, 221, 0.5); color: #8fb8dd; box-shadow: none; font-size: 14px; padding: 12px 22px; }
@@ -198,7 +201,7 @@ html, body {
   display: none;
   margin: 0;
 }
-#btn-tutskip.on { display: block; }
+#btn-tutskip.on { display: block; pointer-events: auto; }
 
 /* bonus tally rows on clear screen */
 .tally { display: flex; flex-direction: column; gap: 6px; font-size: 15px; letter-spacing: 0.1em; }
